@@ -1,0 +1,26 @@
+defines = -DLINUX -D_TNC_LINUX -DWEBRTC_POSIX -DUSE_UDEV -DUSE_AURA=1 -DUSE_GLIB=1 -DUSE_NSS_CERTS=1 -DUSE_X11=1 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_GNU_SOURCE -DCR_CLANG_REVISION=\"n353803-99ac9ce7-1\" -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D_LIBCPP_ABI_UNSTABLE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_ENABLE_NODISCARD -DCR_LIBCXX_REVISION=375504 -DCR_SYSROOT_HASH=52cf2961a3cddc0d46e1a2f7d9bf376fc16a61de -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DNDEBUG
+include_dirs = -I../../trunk/include -I/home/kcratie/workspace/kcratie/external/webrtc -I/home/kcratie/workspace/kcratie/external/webrtc/third_party -I../../trunk/include/linux
+cflags = -Wno-deprecated-declarations -gsplit-dwarf -pipe -fno-strict-aliasing -funwind-tables -fPIC -pipe -fcolor-diagnostics --param=ssp-buffer-size=4 -funwind-tables -fmerge-all-constants -fcrash-diagnostics-dir=../../tools/clang/crashreports -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -fcomplete-member-pointers -Wno-builtin-macro-redefined -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Wall -Wextra -Wimplicit-fallthrough -Wunreachable-code -Wthread-safety -Wextra-semi -Wno-missing-field-initializers -Wno-unused-parameter -Wno-c++11-narrowing -Wno-unneeded-internal-declaration -Wno-undefined-var-template -Wno-ignored-pragma-optimize -Wno-implicit-int-float-conversion -Wno-final-dtor-non-final-class -Wno-builtin-assume-aligned-alignment -Wno-deprecated-copy -Wno-non-c-typedef-for-linkage -fno-omit-frame-pointer -ftrivial-auto-var-init=pattern -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -m64 -march=x86-64 -fstack-protector-strong -pthread -O2 -fno-ident -fdata-sections -ffunction-sections -fomit-frame-pointer -g2 --sysroot=../../../../external/sysroot/debian_sid_amd64-sysroot -fvisibility=hidden
+cflags_cc = -fvisibility-inlines-hidden -fcxx-exceptions -std=c++14 -fno-rtti -nostdinc++ -isystem../../../../external/libc++/trunk/include -isystem../../../../external/libc++abi/trunk/include -fexceptions -std=c++14 -fno-rtti -fexceptions
+label_name = tincan
+target_out_dir = obj
+target_output_name = tincan
+
+build obj/tincan/tincan.o: cxx ../../trunk/src/tincan.cc
+build obj/tincan/control_dispatch.o: cxx ../../trunk/src/control_dispatch.cc
+build obj/tincan/control_listener.o: cxx ../../trunk/src/control_listener.cc
+build obj/tincan/tincan_control.o: cxx ../../trunk/src/tincan_control.cc
+build obj/tincan/tincan_main.o: cxx ../../trunk/src/tincan_main.cc
+build obj/tincan/virtual_link.o: cxx ../../trunk/src/virtual_link.cc
+build obj/tincan/tap_frame.o: cxx ../../trunk/src/tap_frame.cc
+build obj/tincan/single_link_tunnel.o: cxx ../../trunk/src/single_link_tunnel.cc
+build obj/tincan/basic_tunnel.o: cxx ../../trunk/src/basic_tunnel.cc
+build obj/tincan/tapdev_lnx.o: cxx ../../trunk/src/linux/tapdev_lnx.cc
+
+build ./tincan: link obj/tincan/tincan.o obj/tincan/control_dispatch.o obj/tincan/control_listener.o obj/tincan/tincan_control.o obj/tincan/tincan_main.o obj/tincan/virtual_link.o obj/tincan/tap_frame.o obj/tincan/single_link_tunnel.o obj/tincan/basic_tunnel.o obj/tincan/tapdev_lnx.o
+  ldflags = -Wl,--fatal-warnings -fPIC -Wl,-z,noexecstack -Wl,-z,now -Wl,-z,relro -Wl,-z,defs -Wl,--as-needed -fuse-ld=lld -Wl,--icf=all -rdynamic -nostdlib++ -L../../../../external/sysroot/debian_sid_amd64-sysroot/lib/x86_64-linux-gnu -L../../../../external/sysroot/debian_sid_amd64-sysroot/usr/lib/x86_64-linux-gnu -m64 -Wl,-O1 -Wl,--gc-sections --sysroot=../../../../external/sysroot/debian_sid_amd64-sysroot -Wl,-rpath=\$$ORIGIN -Wl,-rpath-link=. -Wl,--disable-new-dtags -pie -L/home/kcratie/workspace/kcratie/external/libs
+  libs = -lwebrtc -ljsoncxx -lc++ -lc++abi -ldl -lpthread -lrt
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

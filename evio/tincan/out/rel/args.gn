@@ -1,0 +1,4 @@
+enable_iterator_debugging = false
+is_debug = false
+use_lld = true
+target_sysroot_dir = "/home/kcratie/workspace/kcratie/external/sysroot"

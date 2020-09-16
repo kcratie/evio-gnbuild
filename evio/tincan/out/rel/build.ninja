@@ -1,0 +1,24 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../tools/gn --root=../.. -q gen .
+  description = Regenerating ninja files
+
+build build.ninja: gn
+  generator = 1
+  depfile = build.ninja.d
+
+pool build_toolchain_action_pool
+  depth = 0
+
+pool build_toolchain_link_pool
+  depth = 0
+
+subninja toolchain.ninja
+
+build $:tincan: phony ./tincan
+
+build all: phony $
+    ./tincan
+
+default all

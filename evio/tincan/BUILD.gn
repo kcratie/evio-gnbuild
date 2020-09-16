@@ -1,0 +1,48 @@
+executable("tincan") {
+    if (is_linux || is_win) {    
+        sources = [
+            "trunk/src/tincan.cc",
+            "trunk/src/control_dispatch.cc",
+            "trunk/src/control_listener.cc",
+            "trunk/src/tincan_control.cc",
+            "trunk/src/tincan_main.cc",
+            "trunk/src/virtual_link.cc",
+            "trunk/src/tap_frame.cc",
+            "trunk/src/single_link_tunnel.cc",
+            "trunk/src/basic_tunnel.cc",
+        ]
+        include_dirs = [
+            "trunk/include",
+            "../../external/webrtc",
+            "../../external/webrtc/third_party",
+        ]
+
+        if (is_linux) {
+            sources += [
+                "trunk/src/linux/tapdev_lnx.cc",
+            ]
+
+            include_dirs += [
+                "trunk/include/linux",
+            ]
+
+            cflags = [ "-Wno-deprecated-declarations",
+                        "-gsplit-dwarf",
+                        "-pipe" ]
+            defines = [
+                "LINUX",
+                "_TNC_LINUX",
+                "WEBRTC_POSIX",
+            ]
+        }
+        lib_dirs = [
+            "../../external/libs"
+        ]
+        libs = [
+            "webrtc", "jsoncxx",
+        ]
+        #configs -=["//build/config/compiler:no_exceptions",]
+        #configs +=["//build/config/compiler:exceptions",]
+    }
+}
+
