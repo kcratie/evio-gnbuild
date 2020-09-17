@@ -39,7 +39,12 @@ executable("tincan") {
             "../../external/libs"
         ]
         libs = [
-            "webrtc", "jsoncxx",
+            "webrtc_lite", "jsoncxx",
+            "boringssl",
+            "boringssl_asm",
+            "srtp",
+            "protobuf_lite",
+            "abseil_cpp"
         ]
         #configs -=["//build/config/compiler:no_exceptions",]
         #configs +=["//build/config/compiler:exceptions",]
